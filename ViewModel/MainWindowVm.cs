@@ -113,19 +113,20 @@ namespace HexLoader.ViewModel
             get => _preRequest;
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (!string.IsNullOrEmpty(value))
                 {
-                    return;
-                }
-                try
-                {
-                    var msg = value.Replace(" ", "");
-                    var unused = StringToByteArray(msg);
-                }
-                catch
-                {
-                    MessageBox.Show("Invalid hex value", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+
+
+                    try
+                    {
+                        var msg = value.Replace(" ", "");
+                        var unused = StringToByteArray(msg);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Invalid hex value", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
 
 
