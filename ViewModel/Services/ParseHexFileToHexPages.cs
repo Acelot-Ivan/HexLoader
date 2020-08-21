@@ -1,13 +1,13 @@
-﻿using System;
+﻿using HexLoader.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using HexLoader.Model;
 
 namespace HexLoader.ViewModel.Services
 {
     public static class ParseHexFileToHexPages
     {
-        
+
         public static IEnumerable<HexLine> GetLines(string hexFile)
         {
             return hexFile
@@ -25,10 +25,10 @@ namespace HexLoader.ViewModel.Services
             var bodyEndIndex = bytes.Length - 1; //без Crc
 
             var hexLine = new HexLine(
-                bytes[0], 
-                new[] {bytes[1] , bytes[2]} , 
-                bytes[3] , 
-                bytes.Skip(4).Take(bodyEndIndex - 4).ToArray() , 
+                bytes[0],
+                new[] { bytes[1], bytes[2] },
+                bytes[3],
+                bytes.Skip(4).Take(bodyEndIndex - 4).ToArray(),
                 bytes.Last());
 
             return hexLine;

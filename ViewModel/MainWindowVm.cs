@@ -1,4 +1,9 @@
-﻿using System;
+﻿using HexLoader.Model;
+using HexLoader.Properties;
+using HexLoader.ViewModel.BaseVm;
+using HexLoader.ViewModel.Services;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,11 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
-using HexLoader.Model;
-using HexLoader.Properties;
-using HexLoader.ViewModel.BaseVm;
-using HexLoader.ViewModel.Services;
-using Microsoft.Win32;
 
 namespace HexLoader.ViewModel
 {
@@ -57,7 +57,7 @@ namespace HexLoader.ViewModel
             {
                 BaudRate = Settings.Default.BaudRate;
                 ComPort = Settings.Default.ComPort;
-                BodySizePage = (BodySizePage) Settings.Default.BodySizePage;
+                BodySizePage = (BodySizePage)Settings.Default.BodySizePage;
                 RetryLoadChar = Settings.Default.RetryLoadChar;
                 ContinueLoadChar = Settings.Default.ContinueLoadChar;
                 HexFilePath = Settings.Default.HexFilePath;
@@ -174,7 +174,7 @@ namespace HexLoader.ViewModel
             {
                 _bodySizePage = value;
                 OnPropertyChanged(nameof(BodySizePage));
-                Settings.Default.BodySizePage = (int) value;
+                Settings.Default.BodySizePage = (int)value;
                 Settings.Default.Save();
             }
         }
@@ -439,7 +439,7 @@ namespace HexLoader.ViewModel
                 if (b != continueLoadChar)
                 {
 
-                    var answerByte = ByteArrayToString(new[] {b});
+                    var answerByte = ByteArrayToString(new[] { b });
                     throw new Exception(
                         $"Устройство не готово к загрузке. Вместо Continue (hex)({ContinueLoadChar}) пришло ({answerByte})");
                 }
@@ -511,7 +511,7 @@ namespace HexLoader.ViewModel
                 .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                 .ToArray();
         }
-        public  string ByteArrayToString(byte[] ba)
+        public string ByteArrayToString(byte[] ba)
         {
             StringBuilder hex = new StringBuilder(ba.Length * 2);
             foreach (byte b in ba)

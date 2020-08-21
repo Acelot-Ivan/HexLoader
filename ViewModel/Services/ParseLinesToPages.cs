@@ -1,7 +1,7 @@
-﻿using System;
+﻿using HexLoader.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using HexLoader.Model;
 
 namespace HexLoader.ViewModel.Services
 {
@@ -122,7 +122,7 @@ namespace HexLoader.ViewModel.Services
 
 
         private static byte CalculateLrc(byte[] bytes) =>
-            (byte) bytes.Aggregate(0, (current, t) => current - t);
+            (byte)bytes.Aggregate(0, (current, t) => current - t);
     }
 
     public enum BodySizePage

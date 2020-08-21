@@ -1,12 +1,12 @@
-﻿using System;
-using HexLoader.ViewModel;
+﻿using HexLoader.ViewModel;
+using System;
 
 namespace HexLoader.View
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow 
+    public partial class MainWindow
     {
         private MainWindowVm ViewModel;
         public MainWindow()

@@ -12,7 +12,8 @@ namespace HexLoader.ViewModel.Services
         {
             _serialPort = new SerialPort(comPort, baudRate)
             {
-                ReadTimeout = timeQut, WriteTimeout = timeQut
+                ReadTimeout = timeQut,
+                WriteTimeout = timeQut
             };
         }
 
@@ -53,7 +54,7 @@ namespace HexLoader.ViewModel.Services
                 {
                     try
                     {
-                        readByte = (byte) _serialPort.ReadByte();
+                        readByte = (byte)_serialPort.ReadByte();
 
                         break;
                     }
@@ -77,7 +78,7 @@ namespace HexLoader.ViewModel.Services
         /// <returns></returns>
         public byte ReadByte()
         {
-            var b = (byte) _serialPort.ReadByte();
+            var b = (byte)_serialPort.ReadByte();
             Thread.Sleep(50);
             return b;
         }
