@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using HexLoader.Model;
@@ -118,12 +119,11 @@ namespace HexLoader.ViewModel
                 }
                 try
                 {
-                    var unused = Convert.ToByte(value, 16);
-                    StringToByteArray(value);
+                    var msg = value.Replace(" ", "");
+                    var unused = StringToByteArray(msg);
                 }
                 catch
                 {
-                    MessageBox.Show($"{value}");
                     MessageBox.Show("Invalid hex value", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -418,7 +418,8 @@ namespace HexLoader.ViewModel
 
                 if (!string.IsNullOrEmpty(PreRequest))
                 {
-                    var buffer = StringToByteArray(PreRequest);
+                    var msg = PreRequest.Replace(" ", "");
+                    var buffer = StringToByteArray(msg);
                     _serialPortDevice.Send(buffer);
                 }
 
@@ -436,8 +437,10 @@ namespace HexLoader.ViewModel
 
                 if (b != continueLoadChar)
                 {
+
+                    var answerByte = ByteArrayToString(new[] {b});
                     throw new Exception(
-                        $"Устройство не готово к загрузке. Вместо Continue Char({ContinueLoadChar}) пришло ({Convert.ToChar(b)})");
+                        $"Устройство не готово к загрузке. Вместо Continue (hex)({ContinueLoadChar}) пришло ({answerByte})");
                 }
 
                 for (var i = 0; i < pages.Count; i++)
@@ -506,6 +509,13 @@ namespace HexLoader.ViewModel
                 .Where(x => x % 2 == 0)
                 .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                 .ToArray();
+        }
+        public  string ByteArrayToString(byte[] ba)
+        {
+            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            foreach (byte b in ba)
+                hex.AppendFormat("{0:x2}", b);
+            return hex.ToString();
         }
     }
 }
